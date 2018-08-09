@@ -2,20 +2,22 @@ require("dotenv").config();
 
 var fs = require('fs');
 
+var request = require("request");
+
 // Add the code required to import the keys.js file and store it in a variable. ??????
 var keys = require('keys.js');
 
 // var spotify = new Spotify(keys.spotify);
 // var client = new Twitter(keys.twitter);
 
-var command = process.argv[2];
 var name = process.argv[3];
 
-var request = require("request");
 
+
+// Make it so liri.js can take in one of the following commands:
+var command = process.argv[2];
 
 // make if else statements or switch statements so liri.js can take the following commands on the command line
-// Make it so liri.js can take in one of the following commands:
 
 // * `my-tweets`
 if (command == 'my-tweets') {
@@ -36,7 +38,7 @@ if (command == 'movie-this') {
 if (command == 'says') {
     dowhatitsays();
 // Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-
+fs.readFile("random.txt")
 
 // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
 // Feel free to change the text in that document to test out the feature for other commands.
