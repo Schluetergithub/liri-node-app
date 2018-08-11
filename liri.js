@@ -4,6 +4,8 @@ var fs = require('fs');
 
 var request = require("request");
 
+var Spotify = require('node-spotify-api');
+
 // Add the code required to import the keys.js file and store it in a variable. ??????
 var keys = require('keys.js');
 
@@ -38,22 +40,29 @@ if (command == 'movie-this') {
 if (command == 'says') {
     dowhatitsays();
 // Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-fs.readFile("random.txt")
-
+    fs.readFile("random.txt", function(error, data){
+        if (error) {
+            return console.log(error);
+          }
+    
+        else if (data){
+            dowhatitsays();
+        }
+             
+    });
 // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
 // Feel free to change the text in that document to test out the feature for other commands.
 }
-// ??????
 
 function mytweets() {
     // for when they call the twitter argument
     // This will show your last 20 tweets and when they were created at in your terminal/bash window.
+       
 }
 
 function spotifythissong() {
     // for when they call the spotify argument
     //     This will show the following information about the song in your terminal/bash window
-
 
     // Artist(s)
     // The song's name
@@ -61,6 +70,20 @@ function spotifythissong() {
     // The album that the song is from
 
     // If no song is provided then your program will default to "The Sign" by Ace of Base.
+    var spotify = new Spotify({
+        id: <bfc1e55beead4c959b888186570563b0>,
+        secret: <your spotify client secret>
+      });
+       
+      spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+        if (err) {
+          return console.log('Error occurred: ' + err);
+        }
+       
+      console.log(data); 
+      });
+ 
+
 }
 
 function moviethis(movie_name) {
