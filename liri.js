@@ -9,8 +9,10 @@ var Spotify = require('node-spotify-api');
 // Add the code required to import the keys.js file and store it in a variable. ??????
 var keys = require('keys.js');
 
+var twitter = require("twitter");
+
 // var spotify = new Spotify(keys.spotify);
-// var client = new Twitter(keys.twitter);
+var client = new Twitter(keys.twitter);
 
 var name = process.argv[3];
 
@@ -57,6 +59,22 @@ if (command == 'says') {
 function mytweets() {
     // for when they call the twitter argument
     // This will show your last 20 tweets and when they were created at in your terminal/bash window.
+    function myTweets() {
+        var params = { screen_name: "SchlootzMcGootz"}
+        client.get("statuses/user_timeline", params, function (error, tweets, response) {
+    if (!error) {
+        for (var i = 0; i < tweets.length; i++) {
+           var date = tweets[i].created_at;
+           console.log("@SchlootzMcGootz: " + tweets[i].text + " Created: " + date.substring(0, 19));
+        };
+    } else {
+        console.log("error: " + err);
+        return;
+        };
+ 
+    });
+ 
+    };
        
 }
 
@@ -71,8 +89,8 @@ function spotifythissong() {
 
     // If no song is provided then your program will default to "The Sign" by Ace of Base.
     var spotify = new Spotify({
-        id: <bfc1e55beead4c959b888186570563b0>,
-        secret: <your spotify client secret>
+        id: "bfc1e55beead4c959b888186570563b0",
+        secret: "5f37c93398254889b601f2df0fa074d2"
       });
        
       spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
